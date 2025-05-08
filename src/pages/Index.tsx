@@ -252,25 +252,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mt-12">
-            <div className="glass-card p-6">
-              <h3 className="text-xl font-semibold mb-3 text-center">Human vs. AI Skills Analysis</h3>
-              <div className="h-[350px]">
-                <RadarChart
-                  data={prepareSkillsData()}
-                  keys={["AI Complementary Skills", "Vulnerable Skills"]}
-                  indexBy="skill"
-                  colors={["#9381FF", "#F87171"]}
-                />
-              </div>
-
-              <div className="mt-4 text-center">
-                <p className="text-sm text-gray-600 max-w-md mx-auto">
-                  Skills like emotional intelligence and creative problem solving remain valuable, while routine data processing tasks face the highest automation risk.
-                </p>
-              </div>
-            </div>
-
+          <div className="max-w-6xl mx-auto mt-12">
             <div className="glass-card p-6 flex flex-col">
               <h3 className="text-xl font-semibold mb-3 text-center">Key Insights</h3>
               <ul className="list-none space-y-4 flex-grow">
