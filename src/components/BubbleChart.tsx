@@ -257,9 +257,7 @@ const BubbleChart: React.FC<BubbleChartProps> = ({
               <span className="font-bold text-2xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-purple-600">{selectedBubble.value}%</span>
               <span className="text-sm text-gray-600 ml-2">Impact Score</span>
             </div>
-            {selectedBubble.description && (
-              <p className="text-sm">{selectedBubble.description}</p>
-            )}
+
             <button
               className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
               onClick={() => setSelectedBubble(null)}
