@@ -21,12 +21,12 @@ const futureProjections = [
   { year: 2025, value: 45, label: 'Routine task automation accelerates', category: 'Jobs Lost' },
   { year: 2027, value: 65, label: 'Mass transformation of knowledge work', category: 'Jobs Lost' },
   { year: 2030, value: 85, label: 'AI-powered automation mature', category: 'Jobs Lost' },
-  
+
   { year: 2023, value: 20, label: 'AI knowledge jobs emerge', category: 'Jobs Created' },
   { year: 2025, value: 35, label: 'New AI-adjacent roles expand', category: 'Jobs Created' },
   { year: 2027, value: 60, label: 'AI integration specialists in demand', category: 'Jobs Created' },
   { year: 2030, value: 95, label: 'AI-native job ecosystem matures', category: 'Jobs Created' },
-  
+
   { year: 2023, value: 15, label: 'Early adopters pursue reskilling', category: 'Workers Needing Reskilling' },
   { year: 2025, value: 30, label: 'Mid-career professionals affected', category: 'Workers Needing Reskilling' },
   { year: 2027, value: 40, label: 'Technical workforce transforms', category: 'Workers Needing Reskilling' },
@@ -40,25 +40,25 @@ const domainSkillsHeatmap = [
   { x: 'Finance', y: 'Analysis', value: 65, tooltip: 'Significant AI augmentation' },
   { x: 'Finance', y: 'Strategy', value: 40, tooltip: 'Human oversight still critical' },
   { x: 'Finance', y: 'Relationship', value: 25, tooltip: 'Human touch remains essential' },
-  
+
   { x: 'Healthcare', y: 'Data Processing', value: 90, tooltip: 'Records and data management automated' },
   { x: 'Healthcare', y: 'Customer Service', value: 50, tooltip: 'Blend of AI and human touch needed' },
   { x: 'Healthcare', y: 'Analysis', value: 45, tooltip: 'AI assisting with diagnostics' },
   { x: 'Healthcare', y: 'Strategy', value: 20, tooltip: 'Human medical judgment essential' },
   { x: 'Healthcare', y: 'Relationship', value: 10, tooltip: 'Patient care remains human-centered' },
-  
+
   { x: 'Retail', y: 'Data Processing', value: 95, tooltip: 'Inventory and ordering automated' },
   { x: 'Retail', y: 'Customer Service', value: 80, tooltip: 'Most interactions handled by AI' },
   { x: 'Retail', y: 'Analysis', value: 70, tooltip: 'AI-driven customer insights dominant' },
   { x: 'Retail', y: 'Strategy', value: 50, tooltip: 'AI increasingly guiding business decisions' },
   { x: 'Retail', y: 'Relationship', value: 40, tooltip: 'Personalized AI engagements growing' },
-  
+
   { x: 'Education', y: 'Data Processing', value: 85, tooltip: 'Administrative tasks automated' },
   { x: 'Education', y: 'Customer Service', value: 40, tooltip: 'Student support partially automated' },
   { x: 'Education', y: 'Analysis', value: 35, tooltip: 'Learning analytics AI-augmented' },
   { x: 'Education', y: 'Strategy', value: 25, tooltip: 'Curriculum development human-guided' },
   { x: 'Education', y: 'Relationship', value: 15, tooltip: 'Teacher-student bonds remain essential' },
-  
+
   { x: 'Technology', y: 'Data Processing', value: 90, tooltip: 'Data pipeline automation near-complete' },
   { x: 'Technology', y: 'Customer Service', value: 75, tooltip: 'AI handling most technical support' },
   { x: 'Technology', y: 'Analysis', value: 50, tooltip: 'Complex analysis human-AI collaboration' },
@@ -104,11 +104,11 @@ const Index = () => {
   const [scrolled, setScrolled] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const [activeSection, setActiveSection] = useState('intro');
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
-      
+
       // Update active section based on scroll position
       const sections = document.querySelectorAll('section[id]');
       sections.forEach(section => {
@@ -122,18 +122,18 @@ const Index = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       <Navigation />
-      
+
       {/* Hero Section */}
-      <section 
-        id="intro" 
-        ref={heroRef} 
+      <section
+        id="intro"
+        ref={heroRef}
         className="pt-32 pb-24 relative overflow-hidden"
-        style={{ 
-          background: 'linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 50%, #F5F3FF 100%)' 
+        style={{
+          background: 'linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 50%, #F5F3FF 100%)'
         }}
       >
         {/* Background decorative elements */}
@@ -142,17 +142,17 @@ const Index = () => {
           <div className="absolute w-80 h-80 rounded-full bg-blue-200/30 top-40 -right-20 blur-3xl"></div>
           <div className="absolute w-64 h-64 rounded-full bg-purple-200/20 bottom-10 left-1/3 blur-3xl"></div>
         </div>
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700">
               How Fast Will AI<br />Take Your Job?
             </h1>
-            
+
             <p className="text-xl md:text-2xl mb-12 text-slate-700 animate-fade-in animation-delay-300 max-w-3xl mx-auto leading-relaxed">
               An interactive exploration of artificial intelligence's impact on the future of work and what it means for your career.
             </p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="stat-card animate-fade-in animation-delay-500">
                 <div className="stat-icon text-4xl mb-2">
@@ -162,7 +162,7 @@ const Index = () => {
                 <p className="card-value">30%</p>
                 <p className="text-sm text-gray-600">by 2030 (McKinsey)</p>
               </div>
-              
+
               <div className="stat-card animate-fade-in animation-delay-600">
                 <div className="stat-icon text-4xl mb-2">
                   <TrendingUp className="w-12 h-12 text-emerald-500 mx-auto" />
@@ -171,7 +171,7 @@ const Index = () => {
                 <p className="card-value text-emerald-500">+78M</p>
                 <p className="text-sm text-gray-600">globally by 2025 (WEF)</p>
               </div>
-              
+
               <div className="stat-card animate-fade-in animation-delay-700">
                 <div className="stat-icon text-4xl mb-2">
                   <BookOpen className="w-12 h-12 text-blue-500 mx-auto" />
@@ -181,22 +181,22 @@ const Index = () => {
                 <p className="text-sm text-gray-600">by 2030</p>
               </div>
             </div>
-            
-            <Button 
+
+            <Button
               onClick={() => document.getElementById('explorer')?.scrollIntoView({ behavior: 'smooth' })}
               className="animate-fade-in animation-delay-1000 gradient-btn text-base group"
             >
               Explore Your Job's Future
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
-            
+
             <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-fade-in animation-delay-1000">
               <ChevronDown className="w-6 h-6 text-indigo-600 animate-bounce" />
             </div>
           </div>
         </div>
       </section>
-      
+
       {/* Job Explorer Section */}
       <section id="explorer" className="py-28">
         <div className="container mx-auto px-4">
@@ -204,37 +204,36 @@ const Index = () => {
           <p className="section-subheading">
             Search for your job title to discover how artificial intelligence might impact your role in the coming years.
           </p>
-          
+
           <div className="max-w-5xl mx-auto">
             <JobExplorer />
           </div>
         </div>
       </section>
-      
+
       {/* Domain Impact Section */}
-      <section id="domains" className="py-28" style={{ 
-        background: 'linear-gradient(135deg, #F5F3FF 0%, #EEF2FF 50%, #EFF6FF 100%)' 
+      <section id="domains" className="py-28" style={{
+        background: 'linear-gradient(135deg, #F5F3FF 0%, #EEF2FF 50%, #EFF6FF 100%)'
       }}>
         <div className="container mx-auto px-4">
           <h2 className="section-heading">Domain & Skill Impact Analysis</h2>
           <p className="section-subheading">
             Explore which domains and skill types face the highest automation risk from artificial intelligence.
           </p>
-          
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg p-6 glass-card">
-              <h3 className="text-xl font-semibold mb-4 text-center">AI Impact by Domain</h3>
-              <BarChart 
+              <h3 className="text-xl font-semibold mb-4 text-center">Finance has the highest number of jobs that can be automated</h3>
+              <BarChart
                 data={sectorData}
-                //title="AI Impact by Industry"
                 subtitle="Percentage of tasks that could be automated by 2030"
-                height={350}
+                height={300}
               />
             </div>
-            
+
             <div className="glass-card p-6">
-              <h3 className="text-xl font-semibold mb-4 text-center">Domain-Skill Impact Heatmap</h3>
-              <HeatMap 
+              <h3 className="text-xl font-semibold mb-4 text-center">Data Processing seems to be impacted in every domain </h3>
+              <HeatMap
                 data={domainSkillsHeatmap}
                 xLabel="Industry Domain"
                 yLabel="Skill Type"
@@ -242,36 +241,36 @@ const Index = () => {
               />
             </div>
           </div>
-          
+
           <div className="max-w-6xl mx-auto mt-12">
             <div className="glass-card p-6">
               <h3 className="text-xl font-semibold mb-4 text-center">Job Automation Risk Landscape</h3>
-              <BubbleChart 
+              <BubbleChart
                 data={bubbleData}
                 height={500}
               />
             </div>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mt-12">
             <div className="glass-card p-6">
               <h3 className="text-xl font-semibold mb-3 text-center">Human vs. AI Skills Analysis</h3>
               <div className="h-[350px]">
-                <RadarChart 
+                <RadarChart
                   data={prepareSkillsData()}
                   keys={["AI Complementary Skills", "Vulnerable Skills"]}
                   indexBy="skill"
                   colors={["#9381FF", "#F87171"]}
                 />
               </div>
-              
+
               <div className="mt-4 text-center">
                 <p className="text-sm text-gray-600 max-w-md mx-auto">
                   Skills like emotional intelligence and creative problem solving remain valuable, while routine data processing tasks face the highest automation risk.
                 </p>
               </div>
             </div>
-            
+
             <div className="glass-card p-6 flex flex-col">
               <h3 className="text-xl font-semibold mb-3 text-center">Key Insights</h3>
               <ul className="list-none space-y-4 flex-grow">
@@ -284,7 +283,7 @@ const Index = () => {
                     <p className="text-sm text-slate-600">Jobs with repetitive pattern analysis face 80-95% automation risk, including data entry, basic accounting, and claims processing.</p>
                   </div>
                 </li>
-                
+
                 <li className="flex items-start">
                   <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-blue-100 mr-3">
                     <Users className="w-5 h-5 text-blue-600" />
@@ -294,7 +293,7 @@ const Index = () => {
                     <p className="text-sm text-slate-600">Roles requiring emotional intelligence, empathy, and complex interpersonal dynamics face only 9-15% automation risk.</p>
                   </div>
                 </li>
-                
+
                 <li className="flex items-start">
                   <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-emerald-100 mr-3">
                     <TrendingUp className="w-5 h-5 text-emerald-600" />
@@ -309,7 +308,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Future Trends Section */}
       <section id="trends" className="py-28">
         <div className="container mx-auto px-4">
@@ -317,23 +316,23 @@ const Index = () => {
           <p className="section-subheading">
             How the employment landscape will evolve through 2030 with the continued advancement of AI technologies.
           </p>
-          
+
           <div className="max-w-6xl mx-auto">
             <div className="glass-card p-6 mb-12">
               <h3 className="text-xl font-semibold mb-4 text-center">AI Impact Timeline (2023-2030)</h3>
-              <TrendChart 
+              <TrendChart
                 data={futureProjections}
                 height={450}
               />
             </div>
-            
+
             <div className="mb-12">
-              <TimelineChart 
-                events={timelineEvents} 
+              <TimelineChart
+                events={timelineEvents}
                 title="AI Adoption Timeline"
               />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="glass-card p-6">
                 <h3 className="text-xl font-semibold mb-4 text-center">Generative AI Impact</h3>
@@ -344,7 +343,7 @@ const Index = () => {
                   65-70% of knowledge work tasks could be automated or augmented by generative AI technology by 2030.
                 </p>
               </div>
-              
+
               <div className="glass-card p-6">
                 <h3 className="text-xl font-semibold mb-4 text-center">Emerging AI Roles</h3>
                 <ul className="space-y-3 pl-0 list-none">
@@ -367,11 +366,11 @@ const Index = () => {
                   ))}
                 </ul>
               </div>
-              
+
               <div className="glass-card p-6">
                 <h3 className="text-xl font-semibold mb-4 text-center">Reskilling Need</h3>
                 <div className="flex items-center justify-center mb-4">
-                  <IsotypeChart 
+                  <IsotypeChart
                     percentage={50}
                     icon="👨‍💼"
                     rows={5}
@@ -389,17 +388,17 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Call to Action Section */}
-      <section id="action" className="py-28" style={{ 
-        background: 'linear-gradient(135deg, #F5F3FF 0%, #EEF2FF 50%, #EFF6FF 100%)' 
+      <section id="action" className="py-28" style={{
+        background: 'linear-gradient(135deg, #F5F3FF 0%, #EEF2FF 50%, #EFF6FF 100%)'
       }}>
         <div className="container mx-auto px-4">
           <h2 className="section-heading">What Can You Do?</h2>
           <p className="section-subheading">
             Practical steps to prepare yourself for an AI-transformed workplace and protect your career.
           </p>
-          
+
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
               <div className="glass-card p-6 flex flex-col items-center text-center h-full">
@@ -419,7 +418,7 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="glass-card p-6 flex flex-col items-center text-center h-full">
                 <div className="mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center text-white text-2xl">
                   <span className="text-4xl">💻</span>
@@ -437,7 +436,7 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="glass-card p-6 flex flex-col items-center text-center h-full">
                 <div className="mb-4 w-16 h-16 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white text-2xl">
                   <span className="text-4xl">🎨</span>
@@ -456,7 +455,7 @@ const Index = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="glass-card p-8">
               <h3 className="text-xl font-semibold mb-4 text-center">Key Takeaways for the AI Age</h3>
               <ul className="space-y-6">
@@ -469,7 +468,7 @@ const Index = () => {
                     <p className="text-gray-700">Most jobs will transform rather than disappear entirely. Focus on adapting and finding your value-add alongside AI systems.</p>
                   </div>
                 </li>
-                
+
                 <li className="flex">
                   <div className="flex-shrink-0 h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
                     <span className="text-indigo-600 font-medium">2</span>
@@ -479,7 +478,7 @@ const Index = () => {
                     <p className="text-gray-700">Regular upskilling will be necessary throughout your career. Dedicate time to learning new tools and technologies as they emerge.</p>
                   </div>
                 </li>
-                
+
                 <li className="flex">
                   <div className="flex-shrink-0 h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
                     <span className="text-indigo-600 font-medium">3</span>
@@ -489,7 +488,7 @@ const Index = () => {
                     <p className="text-gray-700">Creativity, empathy, and complex problem-solving become more valuable as routine tasks are automated. Develop these skills deliberately.</p>
                   </div>
                 </li>
-                
+
                 <li className="flex">
                   <div className="flex-shrink-0 h-8 w-8 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
                     <span className="text-indigo-600 font-medium">4</span>
@@ -502,17 +501,17 @@ const Index = () => {
               </ul>
 
               <div className="mt-8 flex flex-wrap gap-4 justify-center">
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={() => window.open('https://www.weforum.org/reports/the-future-of-jobs-report-2023/', '_blank')}
                   className="flex items-center gap-2"
                 >
                   WEF Future of Jobs Report
                   <ArrowRight className="w-4 h-4" />
                 </Button>
-                
-                <Button 
-                  variant="outline" 
+
+                <Button
+                  variant="outline"
                   onClick={() => window.open('https://www.mckinsey.com/featured-insights/mckinsey-on-ai/the-economic-potential-of-generative-ai-the-next-productivity-frontier', '_blank')}
                   className="flex items-center gap-2"
                 >
@@ -524,7 +523,7 @@ const Index = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Footer Section */}
       <footer className="py-16 bg-gradient-to-br from-gray-800 to-gray-900 text-white">
         <div className="container mx-auto px-4">
@@ -533,11 +532,11 @@ const Index = () => {
               How Fast Will AI Take Your Job?
             </h3>
             <p className="mb-8">Information Visualization Final Project</p>
-            
+
             <div className="max-w-xl mx-auto mb-8">
               <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
             </div>
-            
+
             <div className="text-sm text-gray-400">
               <p className="mb-2">Data sources: McKinsey Global Institute, World Economic Forum, Oxford University Research</p>
               <p>© 2023 - Created for educational purposes</p>
@@ -545,15 +544,15 @@ const Index = () => {
           </div>
         </div>
       </footer>
-      
+
       {/* Scroll to Top Button */}
-      <button 
+      <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         className={`fixed bottom-6 right-6 p-3 rounded-full bg-white shadow-lg border border-gray-200 z-50 transition-opacity duration-300 ${scrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
       >
         <ChevronDown className="w-5 h-5 text-gray-700 transform rotate-180" />
       </button>
-      
+
       {/* Hidden Usability Testing Elements */}
       <div className="hidden">
         <div id="usability-test-tasks">
@@ -566,7 +565,7 @@ const Index = () => {
             <li>Find and describe the recommended actions for Knowledge Workers in the "What Can You Do?" section.</li>
           </ol>
         </div>
-        
+
         <div id="usability-test-questionnaire">
           <h3>Post-Test Questionnaire</h3>
           <div className="question">
@@ -581,7 +580,7 @@ const Index = () => {
               <span>Strongly Agree</span>
             </div>
           </div>
-          
+
           <div className="question">
             <p>2. The visualizations helped me understand the data better than text alone would have.</p>
             <div className="likert">
@@ -594,7 +593,7 @@ const Index = () => {
               <span>Strongly Agree</span>
             </div>
           </div>
-          
+
           <div className="question">
             <p>3. I was able to find the information I was looking for quickly.</p>
             <div className="likert">
@@ -607,7 +606,7 @@ const Index = () => {
               <span>Strongly Agree</span>
             </div>
           </div>
-          
+
           <div className="question">
             <p>4. The website presented information in a clear and understandable way.</p>
             <div className="likert">
@@ -620,7 +619,7 @@ const Index = () => {
               <span>Strongly Agree</span>
             </div>
           </div>
-          
+
           <div className="question">
             <p>5. After using this website, I have a better understanding of AI's impact on the job market.</p>
             <div className="likert">
@@ -633,7 +632,7 @@ const Index = () => {
               <span>Strongly Agree</span>
             </div>
           </div>
-          
+
           <div className="question">
             <p>6. The animations and visual effects enhanced my experience of the data.</p>
             <div className="likert">
@@ -647,7 +646,7 @@ const Index = () => {
             </div>
           </div>
         </div>
-        
+
         <div id="usability-test-metrics">
           <h3>Usability Test Metrics</h3>
           <ul>
