@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
@@ -82,7 +81,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
   useEffect(() => {
     if (!svgRef.current || !isVisible || !data.length) return;
 
-    const margin = { top: 40, right: 40, bottom: 80, left: 80 };
+    const margin = { top: 50, right: 50, bottom: 70, left: 70 }; // Increased top margin
     const innerWidth = dimensions.width - margin.left - margin.right;
     const innerHeight = dimensions.height - margin.top - margin.bottom;
 
@@ -110,7 +109,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
 
     // Find min and max values for color scale
     const valueExtent = d3.extent(data, d => d.value) as [number, number];
-    
+
     // Create color scale
     const colorScale = d3.scaleLinear<string>()
       .domain([valueExtent[0], valueExtent[1]])
@@ -128,24 +127,28 @@ const HeatMap: React.FC<HeatMapProps> = ({
       .selectAll('text')
       .attr('dy', '0.5em')
       .attr('dx', '-0.5em')
-      .attr('transform', 'rotate(-45)')
+      .attr('transform', 'rotate(-45)') // Rotate labels
       .style('text-anchor', 'end')
-      .style('font-size', '12px');
+      .style('font-size', '8px'); // Reduced font size
 
     g.append('g')
       .attr('class', 'y-axis')
       .call(yAxis)
       .selectAll('text')
-      .style('font-size', '12px');
+      .attr('dy', '0.5em')
+      .attr('dx', '-0.5em')
+      .attr('transform', 'rotate(-45)') // Rotate labels
+      .style('text-anchor', 'end')
+      .style('font-size', '8px'); // Reduced font size
 
     // Add axis labels
     if (xLabel) {
       svg.append('text')
         .attr('class', 'x-label')
         .attr('x', dimensions.width / 2)
-        .attr('y', dimensions.height - 10)
+        .attr('y', dimensions.height - 5) // Adjusted position
         .style('text-anchor', 'middle')
-        .style('font-size', '14px')
+        .style('font-size', '10px') // Reduced font size
         .text(xLabel);
     }
 
@@ -154,9 +157,9 @@ const HeatMap: React.FC<HeatMapProps> = ({
         .attr('class', 'y-label')
         .attr('transform', `rotate(-90)`)
         .attr('x', -(dimensions.height / 2))
-        .attr('y', 20)
+        .attr('y', 10) // Adjusted position
         .style('text-anchor', 'middle')
-        .style('font-size', '14px')
+        .style('font-size', '10px') // Reduced font size
         .text(yLabel);
     }
 
@@ -178,13 +181,13 @@ const HeatMap: React.FC<HeatMapProps> = ({
       .attr('fill', d => animated ? colorScheme[0] : colorScale(d.value))
       .attr('stroke', '#fff')
       .attr('stroke-width', 1)
-      .on('mouseover', function(event, d) {
+      .on('mouseover', function (event, d) {
         d3.select(this)
           .transition()
           .duration(150)
           .attr('stroke', '#000')
           .attr('stroke-width', 2);
-          
+
         tooltip
           .style('opacity', 1)
           .style('left', `${event.pageX + 10}px`)
@@ -195,16 +198,16 @@ const HeatMap: React.FC<HeatMapProps> = ({
             ${d.tooltip ? `<div class="text-xs mt-1">${d.tooltip}</div>` : ''}
           `);
       })
-      .on('mouseout', function() {
+      .on('mouseout', function () {
         d3.select(this)
           .transition()
           .duration(150)
           .attr('stroke', '#fff')
           .attr('stroke-width', 1);
-          
+
         tooltip.style('opacity', 0);
       });
-    
+
     // Add cell values
     g.selectAll('.cell-value')
       .data(data)
@@ -215,12 +218,12 @@ const HeatMap: React.FC<HeatMapProps> = ({
       .attr('y', d => (yScale(d.y) || 0) + yScale.bandwidth() / 2)
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
-      .style('font-size', '12px')
+      .style('font-size', '10px') // Reduced font size
       .style('font-weight', 600)
       .style('fill', d => d.value > (valueExtent[1] - valueExtent[0]) / 2 + valueExtent[0] ? '#fff' : '#333')
       .style('opacity', 0)
       .text(d => `${d.value}%`);
-      
+
     // Animation if enabled
     if (animated) {
       g.selectAll('.cell')
@@ -228,7 +231,7 @@ const HeatMap: React.FC<HeatMapProps> = ({
         .duration(1000)
         .delay((_, i) => i * 20)
         .attr('fill', d => colorScale(d.value));
-        
+
       g.selectAll('.cell-value')
         .transition()
         .duration(800)
@@ -237,56 +240,56 @@ const HeatMap: React.FC<HeatMapProps> = ({
     } else {
       g.selectAll('.cell-value').style('opacity', 1);
     }
-    
+
     // Add legend
-    const legendWidth = 200;
-    const legendHeight = 20;
-    
-    const legendX = dimensions.width - legendWidth - 20;
-    const legendY = margin.top / 2 - 10;
-    
+    const legendWidth = 120; // Reduced legend width
+    const legendHeight = 12; // Reduced legend height
+
+    const legendX = dimensions.width - margin.right - legendWidth; // Adjusted position
+    const legendY = 20; // Adjusted position
+
     const defs = svg.append('defs');
-    
+
     const linearGradient = defs.append('linearGradient')
       .attr('id', 'linear-gradient');
-      
+
     linearGradient.append('stop')
       .attr('offset', '0%')
       .attr('stop-color', colorScheme[0]);
-      
+
     linearGradient.append('stop')
       .attr('offset', '100%')
       .attr('stop-color', colorScheme[1]);
-      
+
     const legend = svg.append('g')
       .attr('class', 'legend')
       .attr('transform', `translate(${legendX},${legendY})`);
-      
+
     legend.append('rect')
       .attr('width', legendWidth)
       .attr('height', legendHeight)
       .style('fill', 'url(#linear-gradient)');
-      
+
     // Add scale ticks to legend
     const legendScale = d3.scaleLinear()
       .domain([valueExtent[0], valueExtent[1]])
       .range([0, legendWidth]);
-      
+
     const legendAxis = d3.axisBottom(legendScale)
       .ticks(5)
       .tickFormat(d => `${d}%`);
-      
+
     legend.append('g')
       .attr('transform', `translate(0,${legendHeight})`)
       .call(legendAxis)
       .selectAll('text')
-      .style('font-size', '10px');
-      
+      .style('font-size', '6px'); // Reduced font size
+
     // Add legend title
     legend.append('text')
       .attr('x', 0)
-      .attr('y', -5)
-      .style('font-size', '10px')
+      .attr('y', -3) // Adjusted position
+      .style('font-size', '8px') // Reduced font size
       .style('font-weight', 500)
       .text('Automation Risk (%)');
 
@@ -296,15 +299,15 @@ const HeatMap: React.FC<HeatMapProps> = ({
     <div className="heat-map" ref={containerRef}>
       {title && <h3 className="text-xl font-semibold mb-2 text-center">{title}</h3>}
       {subtitle && <p className="text-sm text-gray-600 text-center mb-4">{subtitle}</p>}
-      
+
       <div className="relative">
-        <svg 
+        <svg
           ref={svgRef}
-          width={dimensions.width} 
+          width={dimensions.width}
           height={dimensions.height}
           className={`transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
         />
-        <div 
+        <div
           ref={tooltipRef}
           className="absolute pointer-events-none bg-white px-3 py-2 rounded shadow-lg border border-gray-200 text-sm transition-opacity duration-200 z-10 opacity-0"
         />
