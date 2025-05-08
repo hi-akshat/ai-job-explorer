@@ -1,7 +1,19 @@
-
 interface CSVParseOptions {
   delimiter?: string;
   skipHeader?: boolean;
+}
+
+export interface Job {
+  title: string;
+  impact: number;
+  tasks: number;
+  aiModels: number;
+  aiWorkloadRatio: number;
+  domain: string;
+  keySkillsToKeep: string[];
+  howToBeAIProof: string;
+  timeToDisruption: string;
+  aiImpactAssessment: string;
 }
 
 /**
@@ -68,20 +80,20 @@ export const parseCSV = (csvText: string, options: CSVParseOptions = {}) => {
 /**
  * Transforms CSV job data into the Job type
  */
-export const transformJobData = (jobData: Record<string, string>[]) => {
-  return jobData.map(job => ({
-    title: job.title,
-    impact: parseInt(job.impact),
-    tasks: parseInt(job.tasks),
-    aiModels: parseInt(job.aiModels),
-    aiWorkloadRatio: parseFloat(job.aiWorkloadRatio),
-    domain: job.domain,
-    automationLevel: job.automationLevel as 'Low' | 'Medium' | 'High',
-    augmentationPotential: job.augmentationPotential as 'Low' | 'Medium' | 'High',
-    timeToDisruption: job.timeToDisruption,
-    keySkillsToKeep: job.keySkillsToKeep.split('|')
+export function transformJobData(csvData: any[]): Job[] {
+  return csvData.map(row => ({
+    title: row['Job Titles'],
+    impact: parseFloat(row['AI Impact']),
+    tasks: parseInt(row['Tasks']),
+    aiModels: parseInt(row['AI models']),
+    aiWorkloadRatio: parseFloat(row['AI_Workload_Ratio']),
+    domain: row['Domain'],
+    keySkillsToKeep: row['Key Skills to Maintain'].split(', '),
+    howToBeAIProof: row['How to Be AI-Proof'],
+    timeToDisruption: row['Time to Disruption'],
+    aiImpactAssessment: row['AI Impact Assessment']
   }));
-};
+}
 
 /**
  * Transforms CSV sector data into the required format

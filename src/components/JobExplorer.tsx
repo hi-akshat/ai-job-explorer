@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useMemo } from 'react';
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
@@ -17,10 +16,10 @@ interface Job {
   aiModels: number;
   aiWorkloadRatio: number;
   domain: string;
-  automationLevel: 'Low' | 'Medium' | 'High';
-  augmentationPotential: 'Low' | 'Medium' | 'High';
-  timeToDisruption: string;
   keySkillsToKeep: string[];
+  howToBeAIProof: string;
+  timeToDisruption: string;
+  aiImpactAssessment: string;
 }
 
 interface JobExplorerProps {
@@ -37,7 +36,7 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
   const [open, setOpen] = useState(false);
   const [domainFilter, setDomainFilter] = useState<string | null>(null);
   const [impactFilter, setImpactFilter] = useState<'all' | 'high' | 'medium' | 'low'>('all');
-  const [sortBy, setSortBy] = useState<'impact' | 'title'>('impact');
+  const [sortBy, setSortBy] = useState<'impact' | 'title' | 'aiWorkloadRatio'>('impact');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [showFilters, setShowFilters] = useState(false);
   
@@ -46,7 +45,7 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
     const loadJobData = async () => {
       try {
         setIsLoading(true);
-        const jobDataCSV = await fetchCSV('/data/job_data.csv');
+        const jobDataCSV = await fetchCSV('/data/augmented_final_data.csv');
         
         if (jobDataCSV.length === 0) {
           throw new Error('Failed to load job data or CSV is empty');
@@ -103,11 +102,16 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
     filtered = [...filtered].sort((a, b) => {
       if (sortBy === 'impact') {
         return sortDirection === 'asc' ? a.impact - b.impact : b.impact - a.impact;
-      } else {
+      } else if (sortBy === 'title') {
         return sortDirection === 'asc' 
           ? a.title.localeCompare(b.title) 
           : b.title.localeCompare(a.title);
+      } else if (sortBy === 'aiWorkloadRatio') {
+        return sortDirection === 'asc' 
+          ? a.aiWorkloadRatio - b.aiWorkloadRatio 
+          : b.aiWorkloadRatio - a.aiWorkloadRatio;
       }
+      return 0;
     });
     
     setFilteredJobs(filtered);
@@ -141,7 +145,7 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
   };
 
   // Toggle sort direction
-  const toggleSort = (field: 'impact' | 'title') => {
+  const toggleSort = (field: 'impact' | 'title' | 'aiWorkloadRatio') => {
     if (sortBy === field) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
@@ -370,6 +374,17 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
                       sortDirection === 'asc' ? <ChevronUp className="ml-1 w-4 h-4" /> : <ChevronDown className="ml-1 w-4 h-4" />
                     )}
                   </Button>
+
+                  <Button 
+                    variant={sortBy === 'aiWorkloadRatio' ? "default" : "outline"} 
+                    onClick={() => toggleSort('aiWorkloadRatio')}
+                    className="flex-1 flex justify-center items-center"
+                    size="sm"
+                  >
+                    AI Workload {sortBy === 'aiWorkloadRatio' && (
+                      sortDirection === 'asc' ? <ChevronUp className="ml-1 w-4 h-4" /> : <ChevronDown className="ml-1 w-4 h-4" />
+                    )}
+                  </Button>
                 </div>
               </div>
             </div>
@@ -433,7 +448,7 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
                       <span className="text-sm font-semibold">{selectedJob.timeToDisruption}</span>
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4 mt-4">
+                    <div className="grid grid-cols-3 gap-4 mt-4">
                       <div className="text-center">
                         <div className="text-3xl font-bold text-indigo-600">{selectedJob.tasks}</div>
                         <div className="text-sm text-gray-500">Tasks Analyzed</div>
@@ -442,6 +457,13 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
                       <div className="text-center">
                         <div className="text-3xl font-bold text-indigo-600">{selectedJob.aiModels}</div>
                         <div className="text-sm text-gray-500">AI Models</div>
+                      </div>
+
+                      <div className="text-center">
+                        <div className="text-3xl font-bold text-indigo-600">
+                          {(selectedJob.aiWorkloadRatio * 100).toFixed(1)}%
+                        </div>
+                        <div className="text-sm text-gray-500">AI Workload Ratio</div>
                       </div>
                     </div>
                   </div>
@@ -455,7 +477,7 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
                   
                   <div className="impact-explanation mb-6">
                     <h4 className="text-lg font-medium mb-2">AI Impact Assessment:</h4>
-                    <p className="text-gray-700">{getExplanation(selectedJob.impact)}</p>
+                    <p className="text-gray-700">{selectedJob.aiImpactAssessment}</p>
                   </div>
                   
                   <div className="mb-6">
@@ -473,14 +495,9 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
                   </div>
                   
                   <div className="recommendations">
-                    <h4 className="text-lg font-medium mb-2">Recommendations:</h4>
+                    <h4 className="text-lg font-medium mb-2">How to Be AI-Proof:</h4>
                     <p className="text-gray-700">
-                      {selectedJob.impact > 70 
-                        ? "Consider upskilling in complementary areas or transitioning to roles that require more human judgment and creativity. Focus on building skills that AI cannot easily replicate."
-                        : selectedJob.impact > 30
-                        ? "Develop skills that complement AI capabilities, such as complex problem-solving, interpersonal communication, and creative thinking. Learn to work alongside AI tools."
-                        : "Continue developing expertise in your field, while also learning to leverage AI tools to enhance your productivity and expand your capabilities."
-                      }
+                      {selectedJob.howToBeAIProof}
                     </p>
                   </div>
                 </div>

@@ -226,7 +226,7 @@ const Index = () => {
               <h3 className="text-xl font-semibold mb-4 text-center">AI Impact by Domain</h3>
               <BarChart 
                 data={sectorData}
-                title="AI Impact by Industry"
+                //title="AI Impact by Industry"
                 subtitle="Percentage of tasks that could be automated by 2030"
                 height={350}
               />

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 
 interface GaugeChartProps {
@@ -10,105 +9,101 @@ interface GaugeChartProps {
 
 const GaugeChart: React.FC<GaugeChartProps> = ({
   percentage,
-  color = '#9b87f5',
+  color,
   size = 220,
   animated = true
 }) => {
   const gaugeRef = useRef<SVGSVGElement>(null);
 
+  // Arc calculations for a full circle
+  const strokeWidth = size * 0.12;
+  const radius = (size / 2) - (strokeWidth / 2);
+  const center = size / 2;
+  const circumference = 2 * Math.PI * radius;
+  const arcColor = color || (percentage < 30 ? '#10B981' : percentage < 70 ? '#F59E0B' : '#EF4444');
+  const labelText = percentage < 30 ? 'Low Risk' : percentage < 70 ? 'Medium Risk' : 'High Risk';
+
+  // For animation
   useEffect(() => {
     if (gaugeRef.current && animated) {
-      // Animation setup when component mounts
-      const gauge = gaugeRef.current;
-      const gaugeFill = gauge.querySelector('.gauge-fill');
-      
-      if (gaugeFill) {
-        const originalArc = gaugeFill.getAttribute('d');
-        gaugeFill.setAttribute('d', getArcPath(0));
-        
-        // Trigger animation after a small delay
+      const arc = gaugeRef.current.querySelector('.gauge-fill');
+      if (arc) {
+        arc.setAttribute('stroke-dasharray', `${circumference}`);
+        arc.setAttribute('stroke-dashoffset', `${circumference}`);
         setTimeout(() => {
-          gaugeFill.setAttribute('d', originalArc || '');
+          arc.setAttribute('stroke-dashoffset', `${circumference * (1 - percentage / 100)}`);
         }, 100);
       }
     }
-  }, [percentage, animated]);
+  }, [percentage, animated, circumference]);
 
-  // Calculate the arc path for the gauge
-  const getArcPath = (percent: number) => {
-    const radius = 80;
-    const startAngle = -Math.PI / 2; // Start at the top
-    const endAngle = startAngle + (percent / 100) * Math.PI; // Max angle is 180 degrees (PI radians)
-    
-    // SVG arc path
-    const x1 = size / 2 + radius * Math.cos(startAngle);
-    const y1 = size / 2 + radius * Math.sin(startAngle);
-    const x2 = size / 2 + radius * Math.cos(endAngle);
-    const y2 = size / 2 + radius * Math.sin(endAngle);
-    
-    const largeArcFlag = percent > 50 ? 1 : 0;
-    
-    return `M ${size/2} ${size/2 - radius} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`;
-  };
-
-  // Determine color based on percentage
-  const getColor = (percent: number) => {
-    if (color) return color;
-    if (percent < 30) return '#4CAF50'; // Low risk - green
-    if (percent < 70) return '#FFC107'; // Medium risk - yellow/amber
-    return '#E76F6F'; // High risk - red
-  };
-
-  // Get label text based on percentage
-  const getLabelText = (percent: number) => {
-    if (percent < 30) return 'Low Risk';
-    if (percent < 70) return 'Medium Risk';
-    return 'High Risk';
-  };
-
-  const arcPath = getArcPath(percentage);
-  const arcColor = getColor(percentage);
-  const labelText = getLabelText(percentage);
+  // If not animated, set offset directly
+  const dashOffset = animated ? circumference : circumference * (1 - percentage / 100);
 
   return (
     <svg className="gauge-chart" width={size} height={size} ref={gaugeRef}>
-      {/* Background arc */}
-      <path
-        className="gauge-background"
-        d={getArcPath(100)}
+      {/* Full grey background circle */}
+      <circle
+        cx={center}
+        cy={center}
+        r={radius}
         fill="none"
-        stroke="#e9ecef"
-        strokeWidth="30"
+        stroke="#E5E7EB"
+        strokeWidth={strokeWidth}
       />
-      
-      {/* Filled arc */}
-      <path
+      {/* Colored arc for percentage */}
+      <circle
         className="gauge-fill"
-        d={arcPath}
+        cx={center}
+        cy={center}
+        r={radius}
         fill="none"
         stroke={arcColor}
-        strokeWidth="30"
-        style={{ transition: animated ? 'all 1s ease-out' : 'none' }}
+        strokeWidth={strokeWidth}
+        strokeLinecap="round"
+        strokeDasharray={circumference}
+        strokeDashoffset={dashOffset}
+        style={{
+          transition: animated ? 'stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+          filter: 'drop-shadow(0 0 8px rgba(0, 0, 0, 0.1))',
+        }}
+        transform={`rotate(-90 ${center} ${center})`}
       />
-      
+      {/* Solid center circle for text background */}
+      <circle
+        cx={center}
+        cy={center}
+        r={radius - strokeWidth / 1.5}
+        fill="#F9FAFB"
+        stroke="none"
+      />
       {/* Percentage text */}
       <text
         className="gauge-text"
-        x={size / 2}
-        y={size / 2 + 15}
+        x={center}
+        y={center + size * 0.04}
         textAnchor="middle"
-        fill="#1A1F2C"
+        fill="#1F2937"
+        style={{
+          fontSize: `${size * 0.2}px`,
+          fontWeight: 'bold',
+          fontFamily: 'system-ui, -apple-system, sans-serif',
+        }}
       >
         {percentage}%
       </text>
-      
       {/* Label text */}
       <text
         className="gauge-label"
-        x={size / 2}
-        y={size / 2 + 45}
+        x={center}
+        y={center + size * 0.14}
         textAnchor="middle"
-        fill="#666"
+        fill="#6B7280"
+        style={{
+          fontSize: `${size * 0.09}px`,
+          fontWeight: 500,
+          fontFamily: 'system-ui, -apple-system, sans-serif',
+        }}
       >
         {labelText}
       </text>
