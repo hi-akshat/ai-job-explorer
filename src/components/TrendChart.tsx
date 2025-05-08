@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
@@ -88,7 +87,7 @@ const TrendChart: React.FC<TrendChartProps> = ({
   useEffect(() => {
     if (!svgRef.current || !isVisible || !data.length) return;
 
-    const margin = { top: 40, right: showLegend ? 120 : 40, bottom: 60, left: 70 };
+    const margin = { top: 40, right: showLegend ? 200 : 40, bottom: 60, left: 70 };
     const innerWidth = dimensions.width - margin.left - margin.right;
     const innerHeight = dimensions.height - margin.top - margin.bottom;
 
@@ -211,6 +210,19 @@ const TrendChart: React.FC<TrendChartProps> = ({
           .attr('stroke-dashoffset', 0);
       }
 
+      // Add annotations / labels to the points
+      points.forEach((point, idx) => {
+        g.append('text')
+          .attr('class', `point-label point-label-${category.replace(/\s+/g, '-')}-${idx}`)
+          .attr('x', xScale(point.year))
+          .attr('y', yScale(point.value) - 15)
+          .attr('text-anchor', 'middle')
+          .style('font-size', '12px')
+          .style('font-weight', 'bold')
+          .style('opacity', 0)
+          .text(`${point.value}%`);
+      });
+
       // Add circles for data points
       g.selectAll(`.point-${category.replace(/\s+/g, '-')}`)
         .data(points)
@@ -224,12 +236,11 @@ const TrendChart: React.FC<TrendChartProps> = ({
         .attr('stroke', '#fff')
         .attr('stroke-width', 2)
         .style('opacity', animated ? 0 : 1)
-        .on('mouseover', function(event, d) {
+        .on('mouseover', function(event, d, i) {
           d3.select(this)
             .transition()
             .duration(150)
             .attr('r', 8);
-            
           tooltip
             .style('opacity', 1)
             .style('left', `${event.pageX + 10}px`)
@@ -240,14 +251,23 @@ const TrendChart: React.FC<TrendChartProps> = ({
               <div class="text-sm">${d.year}</div>
               <div class="text-xs mt-1">${d.label}</div>
             `);
+          // Show the label for this point
+          g.select(`.point-label-${category.replace(/\s+/g, '-')}-${points.indexOf(d)}`)
+            .transition()
+            .duration(100)
+            .style('opacity', 1);
         })
-        .on('mouseout', function() {
+        .on('mouseout', function(event, d, i) {
           d3.select(this)
             .transition()
             .duration(150)
             .attr('r', 6);
-            
           tooltip.style('opacity', 0);
+          // Hide the label for this point
+          g.select(`.point-label-${category.replace(/\s+/g, '-')}-${points.indexOf(d)}`)
+            .transition()
+            .duration(100)
+            .style('opacity', 0);
         });
 
       if (animated) {
@@ -260,33 +280,11 @@ const TrendChart: React.FC<TrendChartProps> = ({
       }
     });
 
-    // Add annotations / labels to the points
-    Array.from(groupedData.entries()).forEach(([category, points]) => {
-      points.forEach(point => {
-        g.append('text')
-          .attr('x', xScale(point.year))
-          .attr('y', yScale(point.value) - 15)
-          .attr('text-anchor', 'middle')
-          .style('font-size', '12px')
-          .style('font-weight', 'bold')
-          .style('opacity', animated ? 0 : 1)
-          .text(`${point.value}%`);
-      });
-      
-      if (animated) {
-        g.selectAll('text')
-          .transition()
-          .duration(500)
-          .delay((_, i) => 2000 + i * 100)
-          .style('opacity', 1);
-      }
-    });
-
     // Create legend if enabled
     if (showLegend) {
       const legend = svg.append('g')
         .attr('class', 'legend')
-        .attr('transform', `translate(${dimensions.width - margin.right + 30},${margin.top})`);
+        .attr('transform', `translate(${dimensions.width - margin.right + 0},${margin.top - 50})`);
 
       categories.forEach((category, i) => {
         const legendItem = legend.append('g')

@@ -45,7 +45,7 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
     const loadJobData = async () => {
       try {
         setIsLoading(true);
-        const jobDataCSV = await fetchCSV('/data/augmented_final_data.csv');
+        const jobDataCSV = await fetchCSV('/data/augmented_final_data_corrected.csv');
         
         if (jobDataCSV.length === 0) {
           throw new Error('Failed to load job data or CSV is empty');
@@ -501,22 +501,6 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
                     </p>
                   </div>
                 </div>
-              </div>
-              
-              {/* Skills comparison chart */}
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <h3 className="text-xl font-semibold mb-4 text-center">Human vs AI Skills Comparison</h3>
-                <div className="h-[300px]">
-                  <RadarChart 
-                    data={radarData}
-                    keys={["Human Skills", "AI Capabilities"]}
-                    indexBy="skill"
-                    colors={["#9381FF", "#F87171"]}
-                  />
-                </div>
-                <p className="text-center text-sm text-gray-500 mt-2">
-                  This chart compares human skills versus AI capabilities for this role
-                </p>
               </div>
             </div>
           </div>
