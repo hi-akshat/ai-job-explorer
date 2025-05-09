@@ -277,7 +277,7 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
       {/* Search and filters */}
       <div className="search-box mb-8">
         <div className="flex items-center gap-3 mb-4">
-          <div className="flex-1">
+          <div className="max-w-5xl w-full">
             <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger asChild>
                 <Button
@@ -352,13 +352,8 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
             <Filter className={`w-4 h-4 ${showFilters ? 'text-indigo-600' : 'text-gray-500'}`} />
           </Button>
         </div>
-        
-        {/* Helper text below search box */}
-        {(!searchTerm && !selectedJob) && (
-          <div className="text-center mt-2 text-indigo-600 text-sm animate-fade-in-up">
-            Start typing to search for jobs by title (e.g. "Software Engineer")
-          </div>
-        )}
+
+
         
         {/* Filters section */}
         {showFilters && (
