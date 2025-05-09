@@ -489,4 +489,40 @@
     background: linear-gradient(180deg, #9381FF 0%, #6A5AE0 100%);
     border-radius: 4px;
   }
+
+  /* Pulsing border for search box */
+  .pulsing-border {
+    animation: pulse-border 8s infinite;
+    box-shadow: 0 0 0 1.5px #a78bfa33, 0 0 4px 1.5px #a78bfa22;
+    border-color: #c4b5fd !important;
+  }
+  @keyframes pulse-border {
+    0%, 100% {
+      box-shadow: 0 0 0 1.5px #a78bfa33, 0 0 4px 1.5px #a78bfa22;
+    }
+    50% {
+      box-shadow: 0 0 0 3px #a78bfa22, 0 0 8px 3px #a78bfa22;
+    }
+  }
+
+  /* Blinking cursor for animated placeholder */
+  .blinking-cursor {
+    font-weight: 400;
+    font-size: 1.1em;
+    color: #a78bfa;
+    animation: blink-cursor 1s steps(2, start) infinite;
+  }
+  @keyframes blink-cursor {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Animated search icon pulse */
+  .search-icon-pulse {
+    animation: search-pulse 2.4s infinite;
+  }
+  @keyframes search-pulse {
+    0%, 100% { transform: scale(1); color: #a78bfa88; }
+    50% { transform: scale(1.07); color: #a78bfa44; }
+  }
 }

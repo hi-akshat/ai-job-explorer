@@ -516,7 +516,7 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300">
-              AI's impact on job market
+              AI Job Explorer
             </h3>
             <p className="mb-8">INFO 247: Information Visualization and Presentation</p>
             <p className="mb-8">Developed by Akshat Gupta & Vikramsingh Rathod</p>

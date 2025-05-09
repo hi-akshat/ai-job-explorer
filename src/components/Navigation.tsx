@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 
@@ -19,7 +18,7 @@ const Navigation = () => {
       }
       
       // Determine active section
-      const sections = ['intro', 'explorer', 'sectors', 'trends', 'action'];
+      const sections = ['intro', 'explorer', 'domains', 'trends', 'action'];
       
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
@@ -69,7 +68,7 @@ const Navigation = () => {
             {[
               { id: 'intro', label: 'Introduction' },
               { id: 'explorer', label: 'Job Explorer' },
-              { id: 'sectors', label: 'Sectors' },
+              { id: 'domains', label: 'Domain & Skill Impact' },
               { id: 'trends', label: 'Future Trends' },
               { id: 'action', label: 'Action Steps' }
             ].map((item) => (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import GaugeChart from './GaugeChart';
@@ -39,13 +39,23 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
   const [sortBy, setSortBy] = useState<'impact' | 'title' | 'aiWorkloadRatio'>('impact');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   const [showFilters, setShowFilters] = useState(false);
+  const [placeholderIndex, setPlaceholderIndex] = useState(0);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const animatedPlaceholders = [
+    'Search for your job title',
+    'e.g. Senior Sales Manager',
+    'e.g. Robotics Engineer',
+    'e.g. Accountant',
+    'e.g. Nurse',
+  ];
   
   // Fetch job data from CSV on component mount
   useEffect(() => {
     const loadJobData = async () => {
       try {
         setIsLoading(true);
-        const jobDataCSV = await fetchCSV('/data/final_data_validated.csv');
+        const jobDataCSV = await fetchCSV('/data/final_data_validated.csv', { skipHeader: true });
         
         if (jobDataCSV.length === 0) {
           throw new Error('Failed to load job data or CSV is empty');
@@ -219,6 +229,22 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
     }, []);
   }, [selectedJob]);
 
+  // Cycle animated placeholder
+  useEffect(() => {
+    if (searchTerm || selectedJob) return;
+    const interval = setInterval(() => {
+      setPlaceholderIndex((prev) => (prev + 1) % animatedPlaceholders.length);
+    }, 1800);
+    return () => clearInterval(interval);
+  }, [searchTerm, selectedJob]);
+
+  // Auto-focus search input on mount
+  useEffect(() => {
+    if (searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, []);
+
   // Show loading state
   if (isLoading) {
     return (
@@ -251,69 +277,88 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
       {/* Search and filters */}
       <div className="search-box mb-8">
         <div className="flex items-center gap-3 mb-4">
-          <Popover open={open} onOpenChange={setOpen}>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline" 
-                role="combobox"
-                aria-expanded={open}
-                className="w-full justify-between bg-white border border-gray-300 hover:bg-gray-50 h-12 text-base"
-              >
-                <div className="flex items-center gap-2">
-                  <Search className="w-4 h-4 text-gray-500" />
-                  <span className={selectedJob ? 'text-black' : 'text-gray-500'}>
-                    {selectedJob ? selectedJob.title : "Search for your job title..."}
-                  </span>
-                </div>
-                <ChevronDown className="w-4 h-4 text-gray-500" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="p-0" align="start" style={{ width: '100%', maxWidth: '600px' }}>
-              <Command className="w-full">
-                <CommandInput 
-                  placeholder="Type a job title..." 
-                  value={searchTerm}
-                  onValueChange={setSearchTerm}
-                  className="h-12 text-base"
-                />
-                <CommandList>
-                  <CommandEmpty className="py-6 text-center text-gray-500">
-                    No jobs found. Try a different search term.
-                  </CommandEmpty>
-                  <CommandGroup className="overflow-y-auto max-h-72">
-                    {filteredJobs.map((job) => (
-                      <CommandItem
-                        key={job.title}
-                        onSelect={() => handleJobSelect(job)}
-                        className="cursor-pointer py-3"
-                      >
-                        <div className="flex justify-between items-center w-full">
-                          <span className="font-medium">{job.title}</span>
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            job.impact >= 70 ? 'bg-red-100 text-red-800' : 
-                            job.impact >= 30 ? 'bg-amber-100 text-amber-800' : 
-                            'bg-green-100 text-green-800'
-                          }`}>
-                            {job.impact}% Impact
+          <div className="flex-1">
+            <Popover open={open} onOpenChange={setOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline" 
+                  role="combobox"
+                  aria-expanded={open}
+                  className={`w-full justify-between bg-white border border-gray-300 hover:bg-gray-50 h-12 text-base transition-all duration-300 ${(!searchTerm && !selectedJob) ? 'pulsing-border' : ''}`}
+                >
+                  <div className="flex items-center gap-2">
+                    <Search className={`w-4 h-4 ${(!searchTerm && !selectedJob) ? 'search-icon-pulse' : 'text-gray-500'}`} />
+                    <span className={selectedJob ? 'text-black' : 'text-gray-500'}>
+                      {selectedJob ? selectedJob.title : (
+                        <>
+                          <span>
+                            {animatedPlaceholders[placeholderIndex]}
                           </span>
-                        </div>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+                          <span className="blinking-cursor">|</span>
+                        </>
+                      )}
+                    </span>
+                  </div>
+                  <ChevronDown className="w-4 h-4 text-gray-500" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="p-0" align="start" style={{ width: '100%', maxWidth: '600px' }}>
+                <Command className="w-full">
+                  <CommandInput 
+                    ref={searchInputRef}
+                    placeholder="Type a job title..." 
+                    value={searchTerm}
+                    onValueChange={setSearchTerm}
+                    className="h-12 text-base"
+                    onFocus={() => setIsInputFocused(true)}
+                    onBlur={() => setIsInputFocused(false)}
+                  />
+                  <CommandList>
+                    <CommandEmpty className="py-6 text-center text-gray-500">
+                      No jobs found. Try a different search term.
+                    </CommandEmpty>
+                    <CommandGroup className="overflow-y-auto max-h-72">
+                      {filteredJobs.map((job) => (
+                        <CommandItem
+                          key={job.title}
+                          onSelect={() => handleJobSelect(job)}
+                          className="cursor-pointer py-3"
+                        >
+                          <div className="flex justify-between items-center w-full">
+                            <span className="font-medium">{job.title}</span>
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                              job.impact >= 70 ? 'bg-red-100 text-red-800' : 
+                              job.impact >= 30 ? 'bg-amber-100 text-amber-800' : 
+                              'bg-green-100 text-green-800'
+                            }`}>
+                              {job.impact}% Impact
+                            </span>
+                          </div>
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
+          </div>
           
           <Button 
             variant="outline" 
             size="icon"
             onClick={() => setShowFilters(!showFilters)}
-            className="h-12 w-12 bg-white hover:bg-gray-50"
+            className="h-12 w-12 bg-white hover:bg-gray-50 flex-shrink-0"
           >
             <Filter className={`w-4 h-4 ${showFilters ? 'text-indigo-600' : 'text-gray-500'}`} />
           </Button>
         </div>
+        
+        {/* Helper text below search box */}
+        {(!searchTerm && !selectedJob) && (
+          <div className="text-center mt-2 text-indigo-600 text-sm animate-fade-in-up">
+            Start typing to search for jobs by title (e.g. "Software Engineer")
+          </div>
+        )}
         
         {/* Filters section */}
         {showFilters && (
