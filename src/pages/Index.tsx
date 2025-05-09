@@ -145,15 +145,15 @@ const Index = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700">
-              Will AI impact<br /> your job?
+            Discover How AI Could Reshape Your Job<br /> 
 
             </h1>
             <br />
             <p className="text-xl md:text-2xl mb-12 text-slate-700 animate-fade-in animation-delay-300 max-w-3xl mx-auto leading-relaxed">
-              Let's explore how artificial intelligence's could impact on the future of work and what it means for your career.
+              Let's explore how artificial intelligence could impact the future of work and what it means for your career.
             </p>
-            <p className="text-s md:text-2xl mb-12 text-slate-700 animate-fade-in animation-delay-300 max-w-3xl mx-auto leading-relaxed">
-              Here are some quick facts for you            </p>
+            {/* <p className="text-s md:text-2xl mb-12 text-slate-700 animate-fade-in animation-delay-300 max-w-3xl mx-auto leading-relaxed">
+              Here are some quick facts for you            </p> */}
 
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -203,7 +203,7 @@ const Index = () => {
       {/* Job Explorer Section */}
       <section id="explorer" className="min-h-screen flex flex-col justify-center py-0">
         <div className="container mx-auto px-4 h-full flex flex-col justify-center">
-          <h2 className="section-heading">Let's explore your future job</h2>
+          <h2 className="section-heading">Interactive Job Explorer</h2>
           <p className="section-subheading">
             Search for your job title to discover how artificial intelligence might impact your role in the coming years.
           </p>
