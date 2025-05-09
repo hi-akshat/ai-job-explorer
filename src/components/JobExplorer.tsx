@@ -45,7 +45,7 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
     const loadJobData = async () => {
       try {
         setIsLoading(true);
-        const jobDataCSV = await fetchCSV('/data/augmented_final_data_corrected.csv');
+        const jobDataCSV = await fetchCSV('/data/final_data_validated.csv');
         
         if (jobDataCSV.length === 0) {
           throw new Error('Failed to load job data or CSV is empty');
@@ -450,19 +450,62 @@ const JobExplorer: React.FC<JobExplorerProps> = ({ onJobSelect }) => {
                     
                     <div className="grid grid-cols-3 gap-4 mt-4">
                       <div className="text-center">
-                        <div className="text-3xl font-bold text-indigo-600">{selectedJob.tasks}</div>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger className="group relative inline-flex items-center gap-1 cursor-help">
+                              <span className="text-3xl font-bold text-indigo-600 group-hover:text-indigo-700 transition-colors">
+                                {selectedJob.tasks}
+                              </span>
+                              <Info className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="w-64 text-sm">
+                                The number of distinct tasks and responsibilities analyzed for this role. 
+                                This helps us understand how AI might affect different aspects of the job.
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                         <div className="text-sm text-gray-500">Tasks Analyzed</div>
                       </div>
                       
                       <div className="text-center">
-                        <div className="text-3xl font-bold text-indigo-600">{selectedJob.aiModels}</div>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger className="group relative inline-flex items-center gap-1 cursor-help">
+                              <span className="text-3xl font-bold text-indigo-600 group-hover:text-indigo-700 transition-colors">
+                                {selectedJob.aiModels}
+                              </span>
+                              <Info className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="w-64 text-sm">
+                                The number of AI systems that could potentially perform tasks in this role. 
+                                This includes both existing and emerging AI technologies.
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                         <div className="text-sm text-gray-500">AI Models</div>
                       </div>
 
                       <div className="text-center">
-                        <div className="text-3xl font-bold text-indigo-600">
-                          {(selectedJob.aiWorkloadRatio * 100).toFixed(1)}%
-                        </div>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger className="group relative inline-flex items-center gap-1 cursor-help">
+                              <span className="text-3xl font-bold text-indigo-600 group-hover:text-indigo-700 transition-colors">
+                                {(selectedJob.aiWorkloadRatio * 100).toFixed(1)}%
+                              </span>
+                              <Info className="w-4 h-4 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="w-64 text-sm">
+                                The percentage of work in this role that could potentially be handled by AI. 
+                                Higher percentages indicate more tasks that AI could perform.
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
                         <div className="text-sm text-gray-500">AI Workload Ratio</div>
                       </div>
                     </div>
