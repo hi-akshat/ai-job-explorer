@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import Navigation from '@/components/Navigation';
@@ -131,7 +130,7 @@ const Index = () => {
       <section
         id="intro"
         ref={heroRef}
-        className="pt-32 pb-24 relative overflow-hidden"
+        className="flex flex-col justify-center items-center pt-0 pb-0 min-h-screen relative overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, #EFF6FF 0%, #EEF2FF 50%, #F5F3FF 100%)'
         }}
@@ -198,8 +197,8 @@ const Index = () => {
       </section>
 
       {/* Job Explorer Section */}
-      <section id="explorer" className="py-28">
-        <div className="container mx-auto px-4">
+      <section id="explorer" className="min-h-screen flex flex-col justify-center py-0">
+        <div className="container mx-auto px-4 h-full flex flex-col justify-center">
           <h2 className="section-heading">Interactive Job Explorer</h2>
           <p className="section-subheading">
             Search for your job title to discover how artificial intelligence might impact your role in the coming years.
@@ -238,6 +237,7 @@ const Index = () => {
                 xLabel="Industry Domain"
                 yLabel="Skill Type"
                 colorScheme={['#EEF2FF', '#9381FF']}
+                subtitle="Heatmap of Automation Risk of Skill types by Domain"
               />
             </div>
           </div>
@@ -301,7 +301,7 @@ const Index = () => {
 
           <div className="max-w-6xl mx-auto">
             <div className="glass-card p-6 mb-12">
-              <h3 className="text-xl font-semibold mb-4 text-center">AI Impact Timeline (2023-2030)</h3>
+              {/* <h3 className="text-xl font-semibold mb-4 text-center">AI Impact Timeline (2023-2030)</h3> */}
               <TrendChart
                 data={futureProjections}
                 height={450}
@@ -507,21 +507,22 @@ const Index = () => {
       </section>
 
       {/* Footer Section */}
-      <footer className="py-16 bg-gradient-to-br from-gray-800 to-gray-900 text-white">
+      <footer className="py-8 bg-gradient-to-br from-gray-800 to-gray-900 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300">
               How Fast Will AI Take Your Job?
             </h3>
-            <p className="mb-8">Information Visualization Final Project</p>
+            <p className="mb-8">INFO 247: Information Visualization and Presentation</p>
+            <p className="mb-8">Created by Akshat Gupta & VikramSingh Rathod</p>
+
 
             <div className="max-w-xl mx-auto mb-8">
               <div className="h-px bg-gradient-to-r from-transparent via-gray-600 to-transparent"></div>
             </div>
 
             <div className="text-sm text-gray-400">
-              <p className="mb-2">Data sources: McKinsey Global Institute, World Economic Forum, Oxford University Research</p>
-              <p>© 2023 - Created for educational purposes</p>
+              <p className="mb-2">Data sources: McKinsey Global Institute, World Economic Forum, Oxford University Research, Kaggle </p>
             </div>
           </div>
         </div>
@@ -535,112 +536,7 @@ const Index = () => {
         <ChevronDown className="w-5 h-5 text-gray-700 transform rotate-180" />
       </button>
 
-      {/* Hidden Usability Testing Elements */}
-      <div className="hidden">
-        <div id="usability-test-tasks">
-          <h3>Benchmark Tasks</h3>
-          <ol>
-            <li>Find the AI impact percentage for "Data Entry Clerk" and explain what it means.</li>
-            <li>Compare the AI impact between Healthcare and Retail sectors and identify which has more growth potential.</li>
-            <li>From the Future Trends section, identify one emerging job role that doesn't exist today.</li>
-            <li>Using the skills comparison radar chart, identify which skills are most vulnerable to AI automation.</li>
-            <li>Find and describe the recommended actions for Knowledge Workers in the "What Can You Do?" section.</li>
-          </ol>
-        </div>
 
-        <div id="usability-test-questionnaire">
-          <h3>Post-Test Questionnaire</h3>
-          <div className="question">
-            <p>1. I found it easy to navigate through the different sections of the website.</p>
-            <div className="likert">
-              <span>Strongly Disagree</span>
-              <input type="radio" name="q1" value="1" />
-              <input type="radio" name="q1" value="2" />
-              <input type="radio" name="q1" value="3" />
-              <input type="radio" name="q1" value="4" />
-              <input type="radio" name="q1" value="5" />
-              <span>Strongly Agree</span>
-            </div>
-          </div>
-
-          <div className="question">
-            <p>2. The visualizations helped me understand the data better than text alone would have.</p>
-            <div className="likert">
-              <span>Strongly Disagree</span>
-              <input type="radio" name="q2" value="1" />
-              <input type="radio" name="q2" value="2" />
-              <input type="radio" name="q2" value="3" />
-              <input type="radio" name="q2" value="4" />
-              <input type="radio" name="q2" value="5" />
-              <span>Strongly Agree</span>
-            </div>
-          </div>
-
-          <div className="question">
-            <p>3. I was able to find the information I was looking for quickly.</p>
-            <div className="likert">
-              <span>Strongly Disagree</span>
-              <input type="radio" name="q3" value="1" />
-              <input type="radio" name="q3" value="2" />
-              <input type="radio" name="q3" value="3" />
-              <input type="radio" name="q3" value="4" />
-              <input type="radio" name="q3" value="5" />
-              <span>Strongly Agree</span>
-            </div>
-          </div>
-
-          <div className="question">
-            <p>4. The website presented information in a clear and understandable way.</p>
-            <div className="likert">
-              <span>Strongly Disagree</span>
-              <input type="radio" name="q4" value="1" />
-              <input type="radio" name="q4" value="2" />
-              <input type="radio" name="q4" value="3" />
-              <input type="radio" name="q4" value="4" />
-              <input type="radio" name="q4" value="5" />
-              <span>Strongly Agree</span>
-            </div>
-          </div>
-
-          <div className="question">
-            <p>5. After using this website, I have a better understanding of AI's impact on the job market.</p>
-            <div className="likert">
-              <span>Strongly Disagree</span>
-              <input type="radio" name="q5" value="1" />
-              <input type="radio" name="q5" value="2" />
-              <input type="radio" name="q5" value="3" />
-              <input type="radio" name="q5" value="4" />
-              <input type="radio" name="q5" value="5" />
-              <span>Strongly Agree</span>
-            </div>
-          </div>
-
-          <div className="question">
-            <p>6. The animations and visual effects enhanced my experience of the data.</p>
-            <div className="likert">
-              <span>Strongly Disagree</span>
-              <input type="radio" name="q6" value="1" />
-              <input type="radio" name="q6" value="2" />
-              <input type="radio" name="q6" value="3" />
-              <input type="radio" name="q6" value="4" />
-              <input type="radio" name="q6" value="5" />
-              <span>Strongly Agree</span>
-            </div>
-          </div>
-        </div>
-
-        <div id="usability-test-metrics">
-          <h3>Usability Test Metrics</h3>
-          <ul>
-            <li><strong>Time on Task:</strong> Measure how long it takes users to complete each benchmark task.</li>
-            <li><strong>Task Success Rate:</strong> Whether users can successfully complete each task.</li>
-            <li><strong>Error Rate:</strong> Count instances where users take incorrect actions or express confusion.</li>
-            <li><strong>Think-Aloud Comments:</strong> Note verbal comments during testing that indicate confusion or delight.</li>
-            <li><strong>Engagement Metrics:</strong> Track how long users spend on each visualization and whether they interact with it.</li>
-            <li><strong>Eye Tracking:</strong> If available, note which elements draw user attention first and where they look for information.</li>
-          </ul>
-        </div>
-      </div>
     </div>
   );
 };

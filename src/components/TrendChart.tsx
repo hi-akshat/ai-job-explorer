@@ -23,12 +23,12 @@ interface TrendChartProps {
 
 const TrendChart: React.FC<TrendChartProps> = ({
   data,
-  title,
-  subtitle,
+  title = "AI is on track to create 95% new jobs by 2030—surpassing job losses (85%) and opening massive opportunities for workers who upskill early",
+  subtitle = "AI Impact Timeline (2023-2030)",
   xLabel = 'Year',
   yLabel = 'Impact (%)',
   width = 700,
-  height = 400,
+  height = 250,
   showLegend = true,
   colors = {
     'Jobs Lost': '#F87171',
@@ -87,7 +87,7 @@ const TrendChart: React.FC<TrendChartProps> = ({
   useEffect(() => {
     if (!svgRef.current || !isVisible || !data.length) return;
 
-    const margin = { top: 40, right: showLegend ? 200 : 40, bottom: 60, left: 70 };
+    const margin = { top: 40, right: showLegend ? 260 : 40, bottom: 60, left: 70 };
     const innerWidth = dimensions.width - margin.left - margin.right;
     const innerHeight = dimensions.height - margin.top - margin.bottom;
 
@@ -284,7 +284,7 @@ const TrendChart: React.FC<TrendChartProps> = ({
     if (showLegend) {
       const legend = svg.append('g')
         .attr('class', 'legend')
-        .attr('transform', `translate(${dimensions.width - margin.right + 0},${margin.top - 50})`);
+        .attr('transform', `translate(${dimensions.width - margin.right + 20},${margin.top - 10})`);
 
       categories.forEach((category, i) => {
         const legendItem = legend.append('g')

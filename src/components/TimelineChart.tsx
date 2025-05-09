@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Info } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -111,7 +110,7 @@ const TimelineChart: React.FC<TimelineChartProps> = ({ events, title }) => {
       </div>
       
       <div className="mt-4 text-center text-sm text-gray-500">
-        Scroll to explore the full timeline of AI's workforce impact
+        {/* Scroll to explore the full timeline of AI's workforce impact */}
       </div>
     </div>
   );
