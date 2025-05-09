@@ -145,7 +145,7 @@ const Index = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700">
-            Discover How AI Could Reshape Your Job<br /> 
+              Discover How AI Could Reshape Your Job<br />
 
             </h1>
             <br />
@@ -161,27 +161,27 @@ const Index = () => {
                 <div className="stat-icon text-4xl mb-2">
                   <Zap className="w-12 h-12 text-indigo-500 mx-auto" />
                 </div>
-                <h3 className="card-heading">Work Hours Automated</h3>
                 <p className="card-value">30%</p>
-                <p className="text-sm text-gray-600">by 2030 (McKinsey)</p>
+                <h3 className="card-heading">Work Hours Automated</h3>
+                <p className="text-sm text-gray-600">by McKinsey Report</p>
               </div>
 
               <div className="stat-card animate-fade-in animation-delay-600">
                 <div className="stat-icon text-4xl mb-2">
                   <TrendingUp className="w-12 h-12 text-emerald-500 mx-auto" />
                 </div>
-                <h3 className="card-heading">Net Job Change</h3>
                 <p className="card-value text-emerald-500">+78M</p>
-                <p className="text-sm text-gray-600">globally by 2025 (WEF)</p>
+                <h3 className="card-heading">Net Job Change</h3>
+                <p className="text-sm text-gray-600">globally by WEF 2025 Report</p>
               </div>
 
               <div className="stat-card animate-fade-in animation-delay-700">
                 <div className="stat-icon text-4xl mb-2">
                   <BookOpen className="w-12 h-12 text-blue-500 mx-auto" />
                 </div>
-                <h3 className="card-heading">Workers Needing Reskilling</h3>
                 <p className="card-value text-blue-500">50%</p>
-                <p className="text-sm text-gray-600">by 2030</p>
+                <h3 className="card-heading">Workers Needing Reskilling</h3>
+                <p className="text-sm text-gray-600">by McKinsey Report</p>
               </div>
             </div>
 
