@@ -48,11 +48,13 @@
     scroll-padding-top: 5rem;
     font-family: 'SF Pro Display', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-gradient-to-br from-slate-50 to-slate-100 text-slate-900;
     font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden;
   }
 
   h1,
