@@ -145,12 +145,16 @@ const Index = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight animate-fade-in bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700">
-              How Fast Will AI<br />Take Your Job?
-            </h1>
+              Will AI impact<br /> your job?
 
+            </h1>
+            <br />
             <p className="text-xl md:text-2xl mb-12 text-slate-700 animate-fade-in animation-delay-300 max-w-3xl mx-auto leading-relaxed">
-              An interactive exploration of artificial intelligence's impact on the future of work and what it means for your career.
+              Let's explore how artificial intelligence's could impact on the future of work and what it means for your career.
             </p>
+            <p className="text-s md:text-2xl mb-12 text-slate-700 animate-fade-in animation-delay-300 max-w-3xl mx-auto leading-relaxed">
+              Here are some quick facts for you            </p>
+
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="stat-card animate-fade-in animation-delay-500">
@@ -199,7 +203,7 @@ const Index = () => {
       {/* Job Explorer Section */}
       <section id="explorer" className="min-h-screen flex flex-col justify-center py-0">
         <div className="container mx-auto px-4 h-full flex flex-col justify-center">
-          <h2 className="section-heading">Interactive Job Explorer</h2>
+          <h2 className="section-heading">Let's explore your future job</h2>
           <p className="section-subheading">
             Search for your job title to discover how artificial intelligence might impact your role in the coming years.
           </p>
@@ -225,26 +229,27 @@ const Index = () => {
               <h3 className="text-xl font-semibold mb-4 text-center">Finance has the highest number of jobs that can be automated</h3>
               <BarChart
                 data={sectorData}
-                subtitle="Percentage of tasks that could be automated by 2030"
+                subtitle="Percentage of tasks that could be automated by 2030 by domain"
                 height={300}
               />
             </div>
 
             <div className="glass-card p-6">
-              <h3 className="text-xl font-semibold mb-4 text-center">Data Processing seems to be impacted in every domain </h3>
+              <h3 className="text-xl font-semibold mb-4 text-center">Data Processing is impacted in every domain </h3>
               <HeatMap
                 data={domainSkillsHeatmap}
                 xLabel="Industry Domain"
                 yLabel="Skill Type"
                 colorScheme={['#EEF2FF', '#9381FF']}
-                subtitle="Heatmap of Automation Risk of Skill types by Domain"
+                subtitle="Automation Risk of Skill types by Domain"
               />
             </div>
           </div>
 
           <div className="max-w-6xl mx-auto mt-12">
             <div className="glass-card p-6">
-              <h3 className="text-xl font-semibold mb-4 text-center">Job Automation Risk Landscape</h3>
+              <h3 className="text-xl font-semibold mb-4 text-center">Manual Processing jobs are at highest risk across domains</h3>
+              <p className="text-s mb-4 text-center">The AI job landscape</p>
               <BubbleChart
                 data={bubbleData}
                 height={500}
@@ -511,10 +516,10 @@ const Index = () => {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h3 className="text-2xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300">
-              How Fast Will AI Take Your Job?
+              AI's impact on job market
             </h3>
             <p className="mb-8">INFO 247: Information Visualization and Presentation</p>
-            <p className="mb-8">Created by Akshat Gupta & VikramSingh Rathod</p>
+            <p className="mb-8">Developed by Akshat Gupta & Vikramsingh Rathod</p>
 
 
             <div className="max-w-xl mx-auto mb-8">

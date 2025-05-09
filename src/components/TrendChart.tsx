@@ -23,7 +23,7 @@ interface TrendChartProps {
 
 const TrendChart: React.FC<TrendChartProps> = ({
   data,
-  title = "AI is on track to create 95% new jobs by 2030—surpassing job losses (85%) and opening massive opportunities for workers who upskill early",
+  title = "AI is on track to create 95% new jobs by 2030 which will surpass job losses by 85% in the same period",
   subtitle = "AI Impact Timeline (2023-2030)",
   xLabel = 'Year',
   yLabel = 'Impact (%)',
@@ -100,7 +100,7 @@ const TrendChart: React.FC<TrendChartProps> = ({
 
     // Create scales
     const categories = Array.from(new Set(data.map(d => d.category)));
-    
+
     const xScale = d3.scaleLinear()
       .domain([d3.min(data, d => d.year) as number, d3.max(data, d => d.year) as number])
       .range([0, innerWidth])
@@ -120,7 +120,7 @@ const TrendChart: React.FC<TrendChartProps> = ({
     const xAxis = d3.axisBottom(xScale)
       .ticks(5)
       .tickFormat(d => d.toString());
-      
+
     const yAxis = d3.axisLeft(yScale)
       .ticks(5)
       .tickFormat(d => `${d}%`);
@@ -187,7 +187,7 @@ const TrendChart: React.FC<TrendChartProps> = ({
     Array.from(groupedData.entries()).forEach(([category, points]) => {
       // Sort points by year
       points.sort((a, b) => a.year - b.year);
-      
+
       const line = g.append('path')
         .datum(points)
         .attr('class', 'line')
@@ -236,7 +236,7 @@ const TrendChart: React.FC<TrendChartProps> = ({
         .attr('stroke', '#fff')
         .attr('stroke-width', 2)
         .style('opacity', animated ? 0 : 1)
-        .on('mouseover', function(event, d, i) {
+        .on('mouseover', function (event, d, i) {
           d3.select(this)
             .transition()
             .duration(150)
@@ -257,7 +257,7 @@ const TrendChart: React.FC<TrendChartProps> = ({
             .duration(100)
             .style('opacity', 1);
         })
-        .on('mouseout', function(event, d, i) {
+        .on('mouseout', function (event, d, i) {
           d3.select(this)
             .transition()
             .duration(150)
@@ -302,7 +302,7 @@ const TrendChart: React.FC<TrendChartProps> = ({
           .attr('y', 12)
           .style('font-size', '14px')
           .text(category);
-          
+
         if (animated) {
           legendItem.transition()
             .duration(500)
@@ -318,15 +318,15 @@ const TrendChart: React.FC<TrendChartProps> = ({
     <div className="trend-chart" ref={containerRef}>
       {title && <h3 className="text-xl font-semibold mb-2 text-center">{title}</h3>}
       {subtitle && <p className="text-sm text-gray-600 text-center mb-4">{subtitle}</p>}
-      
+
       <div className="relative">
-        <svg 
+        <svg
           ref={svgRef}
-          width={dimensions.width} 
+          width={dimensions.width}
           height={dimensions.height}
           className={`transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
         />
-        <div 
+        <div
           ref={tooltipRef}
           className="absolute pointer-events-none bg-white px-3 py-2 rounded shadow-lg border border-gray-200 text-sm transition-opacity duration-200 z-10 opacity-0"
         />
