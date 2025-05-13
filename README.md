@@ -1,15 +1,16 @@
 
 # AI Job Explorer: How Fast Will AI Take Your Job?
+An interactive visualization website for exploring AI's impact on different jobs and industries.
 
-# Final Project
-# INFO 247: Information Visualization and Presentation (Spring 2025)
-# Professor: Dr. Marti Hearst
+## Final Project
+- INFO 247: Information Visualization and Presentation (Spring 2025)
+- Professor: Dr. Marti Hearst
 
-# Created by:
+## Created by:
 - Akshat Gupta (MIMS'25 Student, UC Berkeley, akshat.g@berkeley.edu)
 - Vikramsingh Rathod (MIMS'26 Student, UC Berkeley, vikramsinghrathod@berkeley.edu)
 
-An interactive visualization website for exploring AI's impact on different jobs and industries.
+
 
 ## Overview
 
@@ -138,9 +139,9 @@ This project applies several information visualization principles:
 ## Credits
 
 - Data sourced from McKinsey Global Institute and World Economic Forum reports
-- Created as a final project for a graduate Information Visualization course
 
 ## Data Sources
 
+- Kaggle Dataset: From Data Entry to CEO: The AI Job Threat Index (https://www.kaggle.com/datasets/manavgupta92/from-data-entry-to-ceo-the-ai-job-threat-index)
 - McKinsey Report: Superagency in the workplace: Empowering people to unlock AI’s full potential (https://www.mckinsey.com/capabilities/mckinsey-digital/our-insights/superagency-in-the-workplace-empowering-people-to-unlock-ais-full-potential-at-work)
 - World Economic Forum (WEF) Report: The Future of Jobs Report 2025 (https://www.weforum.org/publications/the-future-of-jobs-report-2025/) 
