@@ -16,7 +16,7 @@ This project is an interactive data visualization website that helps users under
 
 1. Clone this repository:
    ```
-   git clone <repository-url>
+   git clone https://github.com/hi-akshat/ai-job-explorer
    cd ai-job-explorer
    ```
 
@@ -36,7 +36,7 @@ This project is an interactive data visualization website that helps users under
 
 ### Job Data CSV
 
-The site is designed to work with a CSV file containing job titles and their AI impact percentages. To integrate your data:
+The site is designed to work with a CSV file containing job titles and their AI impact percentages. We already have one in place in the current repository. To integrate and work with your YOUR OWN data:
 
 1. Place your CSV file in the `public` directory
 2. Update the data loading in `src/components/JobSearch.tsx`:
